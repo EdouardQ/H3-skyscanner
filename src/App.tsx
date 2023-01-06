@@ -7,7 +7,8 @@ const App = () => (
     <div className="App">
         <Menu items={[
             { label: "Recherche de vols", to: '/' },
-            { label: "Recherche d'aéroports", to: '/airports' }
+            { label: "Recherche d'aéroports", to: '/airports' },
+            { label: "Favoris", to: "/fav" }
         ]} />
         <Outlet />
     </div>

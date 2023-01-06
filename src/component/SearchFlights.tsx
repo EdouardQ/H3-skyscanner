@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_KEY = process.env.REACT_APP_SKYSCANNER_API_KEY;
 
-export const SearchFlights = async (data: { date: string; isLoading: boolean; origin: string; destination: string; flights: any[]; error: null }) => {
+export const SearchFlights = async (data: { date: string; isLoading: boolean; origin: string; destination: string; flights: any[]; error: boolean }) => {
     try {
         const response = await axios.get('https://skyscanner50.p.rapidapi.com/api/v1/searchFlights', {
             headers: {

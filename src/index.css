@@ -58,7 +58,8 @@ input[type="text"] {
   border-radius: 4px;
 }
 
-input[type="submit"] {
+input[type="submit"],
+.btn-details {
   margin-top: 20px;
   width: 100%;
   padding: 10px;
