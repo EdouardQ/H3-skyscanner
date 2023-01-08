@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import {SearchFlights} from "../component/SearchFlights";
 
 interface Props {
@@ -52,7 +51,11 @@ class FlightSearchForm extends React.Component<Props, State> {
         const button: HTMLElement = event.currentTarget;
         localStorage.setItem("details", JSON.stringify({
             id: button.getAttribute('data-id'),
-            legs: button.getAttribute('data-legs'),
+            legs: {
+                origin: this.state.origin,
+                destination: this.state.destination,
+                date: this.state.date
+            }
         }));
     }
 
@@ -83,7 +86,7 @@ class FlightSearchForm extends React.Component<Props, State> {
                             <p>Arrivée: {new Date(result.legs[0].arrival).toISOString().replace(/T/, ' ').replace(/\..+/, '')}</p>
                             <p>Prix: {result.price.amount} €</p>
                             <p>Compagnie: {result.legs[0].carriers[0].name}</p>
-                            <p><a href="/details" className="btn-details" onClick={this.handleDetails} data-id={result.id} data-legs={result.legs}>Détails</a> </p>
+                            <p><a href="/details" className="btn-details" onClick={this.handleDetails} data-id={result.id}>Détails</a> </p>
                         </div>
                     ))}
                 </div>

@@ -6,13 +6,29 @@ const API_KEY = process.env.REACT_APP_SKYSCANNER_API_KEY;
 interface Props {
 }
 
+interface Details {
+    id: string;
+    legs: string;
+}
+
+interface Flight {
+    legs: any[];
+    pricingOptions: any[];
+}
+
 interface State {
-    flight: any[]
+    details: Details;
+    flight: Flight;
 }
 
 class DetailsFlight extends React.Component<Props, State> {
     state = {
-        flight: []
+        // @ts-ignore
+        details: JSON.parse(localStorage.getItem("details")),
+        flight: {
+            legs: [],
+            pricingOptions: []
+        }
     };
 
     fetchFlight = async () => {
@@ -23,20 +39,33 @@ class DetailsFlight extends React.Component<Props, State> {
                     'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
                 },
                 params: {
-
+                    itineraryId: this.state.details.id,
+                    legs: JSON.stringify([this.state.details.legs]),
+                    currency: 'EUR'
                 }
             });
-            this.setState({flight: response.data['data']});
+
+            this.setState({flight: {
+                    legs: response.data['data'].legs[0],
+                    pricingOptions: response.data['data'].pricingOptions
+                }});
         } catch (error) {
             console.error(error);
         }
     }
 
-
-
+    componentDidMount() {
+        this.fetchFlight();
+    }
 
     render() {
-        return <div></div>;
+        return (
+            <div>
+                <div className="card">
+                    {JSON.stringify(this.state.flight)}
+                </div>
+            </div>
+        );
     }
 }
 
