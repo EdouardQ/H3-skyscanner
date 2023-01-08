@@ -108,3 +108,9 @@ input[type="date"]::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 }
+
+.addToFav {
+  width: 10%;
+  align-content: center;
+  margin: auto;
+}
